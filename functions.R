@@ -1,0 +1,1 @@
+removeNumPunct <- function(x) gsub("[^[:alpha:[:space:]]*","",x)
