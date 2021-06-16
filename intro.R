@@ -37,16 +37,28 @@ inspect(gatsbycl)
 
 
 message("-")
-message(":")
+message("Make It Lower Case:")
+gatsbyLow <- tm::tm_map(gatsbycl, tm::content_transformer(tolower))
+str(gatsbyLow)
+inspect(gatsbyLow)
 
 message("-")
-message(":")
+message("Compute The New Document Term Matrix:")
+gatsbyDTM <- DocumentTermMatrix(gatsbyLow)
+inspect(gatsbyDTM)
+str(gatsbyDTM)
 
 message("-")
-message(":")
+message("Removing Stop Words:")
+myStopwords <- c(tm::stopwords("english"))
+gatsbyStop <- tm::tm_map(gatsbyLow, tm::removeWords, myStopwords)
+tm::inspect(gatsbyStop[[1]])
 
 message("-")
-message(":")
+message("Compute The New Document Term Matrix (Again):")
+gatsbyDTM <- DocumentTermMatrix(gatsbyStop)
+inspect(gatsbyDTM)
+str(gatsbyDTM)
 
 message("-")
 message(":")
