@@ -6,13 +6,14 @@ message("--- Intro To Text Analysis Functions ---")
 message("-")
 message("extract text from corpus:")
 btext <- gatsby[[1]]
-print(substr(btext[1], 0, 500))
+# print(btext[1])
 
 
 message("-")
 message("Document Term Matrix:")
 gatsbyDTM <- DocumentTermMatrix(gatsby)
 inspect(gatsbyDTM)
+message("-")
 str(gatsbyDTM)
 
 
@@ -20,6 +21,7 @@ message("-")
 message("Term Document Matrix:")
 gatsbyTDM <- TermDocumentMatrix(gatsby)
 inspect(gatsbyTDM)
+message("-")
 str(gatsbyTDM)
 
 
@@ -33,6 +35,7 @@ message("-")
 message("Clean The Corpus:")
 gatsbycl <- tm::tm_map(gatsby, content_transformer(removeNumPunct))
 str(gatsbycl)
+message("-")
 inspect(gatsbycl)
 
 
@@ -40,12 +43,14 @@ message("-")
 message("Make It Lower Case:")
 gatsbyLow <- tm::tm_map(gatsbycl, tm::content_transformer(tolower))
 str(gatsbyLow)
+message("-")
 inspect(gatsbyLow)
 
 message("-")
 message("Compute The New Document Term Matrix:")
 gatsbyDTM <- DocumentTermMatrix(gatsbyLow)
 inspect(gatsbyDTM)
+message("-")
 str(gatsbyDTM)
 
 message("-")

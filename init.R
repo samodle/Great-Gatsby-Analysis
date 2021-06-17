@@ -16,6 +16,5 @@ package.check <- lapply(
 
 gatsby <- VCorpus(DirSource(".",pattern=".txt", ignore.case=TRUE, mode="text"))
 
-
 rm(package.check)
 rm(packages)
