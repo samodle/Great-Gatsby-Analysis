@@ -1,12 +1,13 @@
 message("-")
 message("--- Intro To Text Analysis Functions ---")
-
+graphMode <- FALSE # create plots while executing?
 
 
 message("-")
 message("extract text from corpus:")
 btext <- gatsby[[1]]
 # print(btext[1])
+print(btext$content[1:15])
 
 
 message("-")
@@ -34,6 +35,7 @@ print(head(gatsbydf[1]))
 message("-")
 message("Clean The Corpus:")
 gatsbycl <- tm::tm_map(gatsby, content_transformer(removeNumPunct))
+#gatsbycl <- tm::tm_map(gatsbycl, content_transformer(removeBlankLines))
 str(gatsbycl)
 message("-")
 inspect(gatsbycl)
@@ -67,24 +69,62 @@ str(gatsbyStopTDM)
 
 message("-")
 message("Frequent Terms:")
-freqTerms <- tm::findFreqTerms(gatsbyStopTDM, lowfreq = 5)
+freqTerms <- tm::findFreqTerms(gatsbyStopTDM, lowfreq = 15)
 print(nchar(freqTerms[3]))
 print(freqTerms[3])
 print(freqTerms)
 message("-")
 gatsbytf <- tm::termFreq(gatsbyStop[[1]])
-print(gatsbytf)
+print(head(gatsbytf))
+
+if(graphMode){
+  message("-")
+  message("Draw A Dendrogram:")
+  gatsbydf <- as.data.frame(gatsbyStopTDM[[1]])
+  gatsbyDist <- dist(gatsbydf)
+  gatsbyDG <- hclust(gatsbyDist, method="ward.D2")
+  print(str(gatsbyDG))
+  plot(gatsbyDG)
+  
+  message("-")
+  message("Word Cloud:")
+  words <- names(gatsbytf)
+  wordsfreq <- gatsbytf
+  pal <- brewer.pal(9, "Spectral")
+  gatsbyWC <- wordcloud(words, wordsfreq, colors=pal)
+}
 
 message("-")
-message("Draw A Dendrogram:")
-gatsbydf <- as.data.frame(gatsbyStopTDM[[1]])
-gatsbyDist <- dist(gatsbydf)
-gatsbyDG <- hclust(gatsbyDist, method="ward.D2")
-print(str(gatsbyDG))
-plot(gatsbyDG)
+message("Apply Tokenization:")
+gatsbyText <- gatsbycl[[1]]
+print(gatsbyText$content[1:10])
+message("-")
+# Note that chr(0) indicates a blank line
+gatsbyTokens <- quanteda::tokens(gatsbyText$content)
+print(str(gatsbyTokens))
 
 message("-")
-message(":")
+message("Create Sparse Document Feature Matrix:")
+gatsbyDFM <- quanteda::dfm(gatsbyTokens)
+gatsbyDFM <- quanteda::dfm_remove(gatsbyDFM, myStopwords)
+print(str(gatsbyDFM))
 
-#rm(btext)
-#rm(gatsbyDTM)
+message("-")
+message("Term Frequency of DFM:")
+gatsbyDocFreq <- quanteda::docfreq(gatsbyDFM)
+print(str(gatsbyDocFreq))
+message("-")
+print(head(gatsbyDocFreq))
+
+message("-")
+message("Assign Weights:")
+gatsbyWeights <- quanteda::dfm_weight(gatsbyDFM)
+print(str(gatsbyWeights))
+message("-")
+print(gatsbyWeights)
+
+message("-")
+message("Calculate tf-idf:")
+gatsbyTFIDF <- quanteda::dfm_tfidf(gatsbyDFM, scheme_tf="count", scheme_df="inverse")
+print(str(gatsbyTFIDF))
+
