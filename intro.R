@@ -128,3 +128,49 @@ message("Calculate tf-idf:")
 gatsbyTFIDF <- quanteda::dfm_tfidf(gatsbyDFM, scheme_tf="count", scheme_df="inverse")
 print(str(gatsbyTFIDF))
 
+
+message("-")
+message("Read File As Giant Sentence:")
+gatsbyString = syuzhet::get_text_as_string("gg_chapter1.txt")
+
+
+message("-")
+message("Split out to individual sentences:")
+gatsbySentences <- syuzhet::get_sentences(gatsbydf)
+
+
+
+message("-")
+message("Sentiment Analysis:")
+gatsbySentiment <- get_sentiment(gatsbySentences, "syuzhet")
+print(gatsbySentiment)
+message("-")
+gatsbySentimentBing <- get_sentiment(gatsbySentences, "bing")
+print(gatsbySentimentBing)
+
+plot(gatsbySentiment, main="Great Gatsby Plot Trajectory: Syuzhet", xlab="Narrative", ylab="Emotional Valence")
+plot(gatsbySentiment, main="Great Gatsby Plot Trajectory: Bing", xlab="Narrative", ylab="Emotional Valence")
+
+
+message("-")
+message("Chunking/Bins for Sentiment Analysis:")
+gatsbySentimentPctValue <- syuzhet::get_percentage_values(gatsbySentiment, bins = 10)
+print(structure(gatsbySentimentPctValue))
+
+plot(gatsbySentimentPctValue, main="Great Gatsby Pct Value 10 Bins", xlab="Narrative", ylab="Emotional Valence", col="red")
+message("-")
+gatsbySentimentPctValue <- syuzhet::get_percentage_values(gatsbySentiment, bins = 20)
+print(structure(gatsbySentimentPctValue))
+
+plot(gatsbySentimentPctValue, main="Great Gatsby Pct Value 20 Bins", xlab="Narrative", ylab="Emotional Valence", col="red")
+message("-")
+
+gatsbySentimentPctValue <- syuzhet::get_percentage_values(gatsbySentiment, bins = 100)
+print(structure(gatsbySentimentPctValue))
+
+plot(gatsbySentimentPctValue, main="Great Gatsby Pct Value 100 Bins", xlab="Narrative", ylab="Emotional Valence", col="red")
+
+
+
+
+message("-fin-")
