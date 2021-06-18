@@ -136,20 +136,20 @@ gatsbyString = syuzhet::get_text_as_string("gg_chapter1.txt")
 
 message("-")
 message("Split out to individual sentences:")
-gatsbySentences <- syuzhet::get_sentences(gatsbydf)
-
+gatsbySentences <- syuzhet::get_sentences(gatsbyString)
+print(head(gatsbySentences))
 
 
 message("-")
 message("Sentiment Analysis:")
-gatsbySentiment <- get_sentiment(gatsbySentences, "syuzhet")
-print(gatsbySentiment)
+gatsbySentiment <- syuzhet::get_sentiment(gatsbySentences, "syuzhet")
+print(head(gatsbySentiment))
 message("-")
-gatsbySentimentBing <- get_sentiment(gatsbySentences, "bing")
-print(gatsbySentimentBing)
+gatsbySentimentBing <- syuzhet::get_sentiment(gatsbySentences, "bing")
+print(head(gatsbySentimentBing))
 
 plot(gatsbySentiment, main="Great Gatsby Plot Trajectory: Syuzhet", xlab="Narrative", ylab="Emotional Valence")
-plot(gatsbySentiment, main="Great Gatsby Plot Trajectory: Bing", xlab="Narrative", ylab="Emotional Valence")
+plot(gatsbySentimentBing, main="Great Gatsby Plot Trajectory: Bing", xlab="Narrative", ylab="Emotional Valence")
 
 
 message("-")
