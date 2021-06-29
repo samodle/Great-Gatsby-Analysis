@@ -5,7 +5,7 @@ if(!exists("gatsby")){
 }
 
 scheduler = c(
-  FALSE, # a
+  TRUE, # a
   TRUE, # b
   FALSE, # c
   FALSE, # d
