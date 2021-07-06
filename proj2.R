@@ -1,3 +1,5 @@
+rm(list = ls()) # clear everything to start
+
 source("functions.R") # load helper functions
 
 if(!exists("gatsby")){

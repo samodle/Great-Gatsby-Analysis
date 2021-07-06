@@ -1,5 +1,3 @@
-rm(list = ls()) # clear everything to start
-
 ## First specify the packages of interest
 packages = c("tm", "wordcloud", "quanteda", "syuzhet", "textreuse", "grid", "tidyverse") #, "wordnet", "zipfR", "stringi")
 
