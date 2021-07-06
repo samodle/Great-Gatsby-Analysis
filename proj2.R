@@ -5,7 +5,7 @@ if(!exists("gatsby")){
 }
 
 scheduler = c(
-  TRUE, # a
+  FALSE, # a
   TRUE, # b
   FALSE, # c
   FALSE, # d
@@ -57,3 +57,6 @@ if(scheduler[7]){
 if(scheduler[8]){
   source("")
 }
+
+
+rm(scheduler)
