@@ -2,6 +2,23 @@ removeNumPunct <- function(x) gsub("[^[:alpha:][:space:]]*","",x)
 
 removeBlankLines <- function(x) grepl("^$", x)
 
+getNLongestWords <- function(n, inputText){
+  a <- strsplit(inputText, " ")
+  b <- vector()
+  for(i in a){
+    b <- c(b, i)
+  }
+  
+  # this will produce the longest words (by line?), but not necessarily the longest in the passage (??)
+  # longestWords <- sapply(strsplit(ch1df$V1, " "), function(x) x[which.max(nchar(x))])
+  
+  lCorpus <- tm::Corpus(VectorSource(b))
+  z <- tm::tm_map(lCorpus, tm::content_transformer(removeNumPunct))
+  z <- z$content[order(nchar(z$content), z$content)]
+  tenLongest <- tail(z, n)
+  return(tenLongest)
+}
+
 performSimpleClean <- function(x){
   rowInc <- 1
   dropRows <- c()

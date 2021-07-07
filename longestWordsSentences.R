@@ -6,5 +6,15 @@ ch1df <- performSimpleClean(gatsby[[1]]$content)
 ch2df <- performSimpleClean(gatsby[[2]]$content)
 ch3df <- performSimpleClean(gatsby[[3]]$content)
 
-# this will produce the longest words (by line?), but not necessarily the longest in the passage (??)
-longestWordTest <- sapply(strsplit(ch1df$V1, " "), function(x) x[which.max(nchar(x))])
+ch1TenLongest <- getNLongestWords(10, ch1df$V1)
+ch2TenLongest <- getNLongestWords(10, ch2df$V1)
+ch3TenLongest <- getNLongestWords(10, ch3df$V1)
+
+message("Chapter 1:")
+print(rev(ch1TenLongest))
+
+message("Chapter 2:")
+print(rev(ch2TenLongest))
+
+message("Chapter 3:")
+print(rev(ch3TenLongest))
