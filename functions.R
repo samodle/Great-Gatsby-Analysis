@@ -16,8 +16,24 @@ getNLongestWords <- function(n, inputText){
   z <- tm::tm_map(lCorpus, tm::content_transformer(removeNumPunct))
   z <- z$content[order(nchar(z$content), z$content)]
   tenLongest <- tail(z, n)
-  return(tenLongest)
+  return(rev(tenLongest))
 }
+
+getNLongestSentences <- function(n, inputText){
+  
+  #the text uses Mr. so this needs to be accounted for
+  chstring <- paste(inputText, collapse = " ")
+  
+  chstring <- gsub("Mr.", "Mr", chstring)
+  
+  longestSentences <- unlist(strsplit(chstring, "(?<=[[:punct:]])\\s(?=[A-Z])", perl=T))
+  
+  print(longestSentences)
+  
+  tenLongest <- tail(longestSentences, n)
+  return(rev(tenLongest))
+}
+
 
 performSimpleClean <- function(x){
   rowInc <- 1
