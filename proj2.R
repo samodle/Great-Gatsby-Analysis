@@ -8,9 +8,8 @@ if(!exists("gatsby")){
 
 scheduler = c(
   FALSE, # a
-  TRUE, # b
+  TRUE, # b & d
   FALSE, # c
-  FALSE, # d
   FALSE, # e
   FALSE, # f
   FALSE, # g
@@ -24,6 +23,7 @@ if(scheduler[1]){
 
 
 # b) Prior to removing the punctuation, find the 10 longest words and 10 longest sentences in each chapter. 
+# d) Use openNLP to mark the parts of speech for the 10 longest sentences found in part b for nouns and verbs having a length of 5 or greater. 
 if(scheduler[2]){
   source("longestWordsSentences.R")
 }
@@ -35,28 +35,23 @@ if(scheduler[3]){
   source("")
 }
 
-# d) Use openNLP to mark the parts of speech for the 10 longest sentences found in part b for nouns and verbs having a length of 5 or greater. 
+# e) Analyze word frequency using functions from package zipfR. 
 if(scheduler[4]){
   source("")
 }
 
-# e) Analyze word frequency using functions from package zipfR. 
+# f) Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter.
 if(scheduler[5]){
   source("")
 }
 
-# f) Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter.
+# g) Follow the procedures in Introduction to Text Analytics re Word Cloud and Sentiment Analysis
 if(scheduler[6]){
   source("")
 }
 
-# g) Follow the procedures in Introduction to Text Analytics re Word Cloud and Sentiment Analysis
-if(scheduler[7]){
-  source("")
-}
-
 # h) Install the packages stringi, quanteda and select three additional methods from each – not the ones used g – apply them and show the results.
-if(scheduler[8]){
+if(scheduler[7]){
   source("")
 }
 
