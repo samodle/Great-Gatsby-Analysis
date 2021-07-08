@@ -22,16 +22,22 @@ getNLongestWords <- function(n, inputText){
 getNLongestSentences <- function(n, inputText){
   
   #the text uses Mr. so this needs to be accounted for
-  chstring <- paste(inputText, collapse = " ")
+  longString <- paste(inputText, collapse = " ")
   
-  chstring <- gsub("Mr.", "Mr", chstring)
-  chstring <- gsub("  ", " ", chstring)
+  longString <- gsub("Mr.", "Mr", longString)
+  longString <- gsub('\\(', "", longString)
+  longString <- gsub('\\)', "", longString)
+  longString <- gsub("  ", " ", longString)
+  longString <- gsub("  ", " ", longString)
   
-  longestSentences <- unlist(strsplit(chstring, "(?<=[[:punct:]])\\s(?=[A-Z])", perl=T))
+  # longestSentences <- unlist(strsplit(longString, "(?<=[[:punct:]])\\s(?=[A-Z])", perl=T))
+  longestSentences <- unlist(strsplit(longString, "(?<=\\.|\\?|\\!)\\s(?=[A-Z])", perl=T))
   
-  print(longestSentences)
+  # print(longestSentences)
   
-  tenLongest <- tail(longestSentences, n)
+  z <- longestSentences[order(nchar(longestSentences), longestSentences)]
+  tenLongest <- tail(z, 10)
+
   return(rev(tenLongest))
 }
 

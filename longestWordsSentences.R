@@ -23,32 +23,16 @@ print(ch3TenLongestWords)
 
 message("Longest Sentences")
 
-#ch1TenLongestSentences <- getNLongestSentences(10, ch1df$V1)
-#ch2TenLongestSentences <- getNLongestSentences(10, ch2df$V1)
-#ch3TenLongestSentences <- getNLongestSentences(10, ch3df$V1)
+ch1TenLongestSentences <- getNLongestSentences(10, ch1df$V1)
+ch2TenLongestSentences <- getNLongestSentences(10, ch2df$V1)
+ch3TenLongestSentences <- getNLongestSentences(10, ch3df$V1)
 
 message("Chapter 1:")
-#print(ch1TenLongestSentences)
+print(ch1TenLongestSentences)
 
-#the text uses Mr. so this needs to be accounted for
-longString <- paste(ch1df$V1, collapse = " ")
+message("Chapter 2:")
+print(ch2TenLongestSentences)
 
-longString <- gsub("Mr.", "Mr", longString)
-longString <- gsub("  ", " ", longString)
-longString <- gsub("  ", " ", longString)
-
-longestSentences <- unlist(strsplit(longString, "(?<=[[:punct:]])\\s(?=[A-Z])", perl=T))
-
-print(longestSentences)
-
-z <- longestSentences[order(nchar(longestSentences), longestSentences)]
-tenLongest <- tail(z, 10)
-
-print(rev(tenLongest))
-
-#message("Chapter 2:")
-#print(ch2TenLongestSentences)
-
-#message("Chapter 3:")
-#print(ch3TenLongestSentences)
+message("Chapter 3:")
+print(ch3TenLongestSentences)
 

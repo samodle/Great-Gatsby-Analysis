@@ -1,5 +1,5 @@
 ## First specify the packages of interest
-packages = c("tm", "wordcloud", "quanteda", "syuzhet", "textreuse", "grid", "tidyverse") #, "wordnet", "zipfR", "stringi")
+packages = c("tm", "wordcloud", "quanteda", "syuzhet", "textreuse", "grid", "tidyverse", "openNLP") #, "wordnet", "zipfR", "stringi")
 
 ## Now load or install&load all
 package.check <- lapply(
