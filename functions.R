@@ -25,6 +25,7 @@ getNLongestSentences <- function(n, inputText){
   chstring <- paste(inputText, collapse = " ")
   
   chstring <- gsub("Mr.", "Mr", chstring)
+  chstring <- gsub("  ", " ", chstring)
   
   longestSentences <- unlist(strsplit(chstring, "(?<=[[:punct:]])\\s(?=[A-Z])", perl=T))
   
