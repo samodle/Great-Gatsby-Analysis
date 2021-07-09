@@ -38,24 +38,43 @@ print(ch3TenLongestSentences)
 
 
 message("-")
-message("--- Use openNLP to mark the parts of speech for the 10 longest sentences found in part b for nouns and verbs having a length of 5 or greater ---")
-# useful resource: https://dpdearing.com/posts/2011/12/opennlp-part-of-speech-pos-tags-penn-english-treebank/
-message("Chapter 1:")
-for(i in ch1TenLongestSentences){
-  print(i)
-  z <- getNounsVerbsLongerThanFive(i)
-  print(z)
+message("--- Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter ---")
+
+
+t <- tidytext::unnest_tokens(tbl = ch1df, output = ngram, input = V1, token="ngrams", n = 2) 
+u <- dplyr::count(t, ngram, sort = TRUE)
+
+
+ch1df %>%
+  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 3)  %>%
+  head(100) %>%
+  print()
+# unnest_tokens(bigram, ch1TenLongestSentences, token = "ngrams", n = 2) %>%
+
+
+
+
+if(FALSE){
   message("-")
-}
-message("Chapter 2:")
-for(i in ch2TenLongestSentences){
-  print(i)
-  print(getNounsVerbsLongerThanFive(i))
-  message("-")
-}
-message("Chapter 3:")
-for(i in ch3TenLongestSentences){
-  print(i)
-  print(getNounsVerbsLongerThanFive(i))
-  message("-")
+  message("--- Use openNLP to mark the parts of speech for the 10 longest sentences found in part b for nouns and verbs having a length of 5 or greater ---")
+  # useful resource: https://dpdearing.com/posts/2011/12/opennlp-part-of-speech-pos-tags-penn-english-treebank/
+  message("Chapter 1:")
+  for(i in ch1TenLongestSentences){
+    print(i)
+    z <- getNounsVerbsLongerThanFive(i)
+    print(z)
+    message("-")
+  }
+  message("Chapter 2:")
+  for(i in ch2TenLongestSentences){
+    print(i)
+    print(getNounsVerbsLongerThanFive(i))
+    message("-")
+  }
+  message("Chapter 3:")
+  for(i in ch3TenLongestSentences){
+    print(i)
+    print(getNounsVerbsLongerThanFive(i))
+    message("-")
+  }
 }
