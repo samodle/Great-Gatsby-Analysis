@@ -41,7 +41,6 @@ getNLongestSentences <- function(n, inputText){
   return(rev(tenLongest))
 }
 
-
 performSimpleClean <- function(x){
   rowInc <- 1
   dropRows <- c()
@@ -87,4 +86,41 @@ performSimpleClean <- function(x){
   rownames(chxdf) <- NULL # reset the row names
   
   return(chxdf)
+}
+
+getNounsVerbsLongerThanFive <- function(x){
+  s <- as.String(x)
+  ## Need sentence and word token annotations.
+  sent_token_annotator <- openNLP::Maxent_Sent_Token_Annotator()
+  word_token_annotator <- openNLP::Maxent_Word_Token_Annotator()
+  a2 <- NLP::annotate(s, list(sent_token_annotator, word_token_annotator))
+  
+  pos_tag_annotator <- Maxent_POS_Tag_Annotator()
+  a3 <- NLP::annotate(s, pos_tag_annotator, a2)
+  
+  
+  ## Determine the distribution of POS tags for word tokens.
+  a3w <- subset(a3, type == "word")
+  tags <- sapply(a3w$features, `[[`, "POS")
+  allWords <- s[a3w]
+  
+  # message("Tags: ")
+  # print(tags)
+  # print(table(tags))
+  ## Extract token/POS pairs (all of them): easy.
+  # message("-")
+  tagPairs <- sprintf("%s/%s", s[a3w], tags)
+  targetPairs <- c()
+  
+  inc <- 1
+  for(i in tagPairs){
+    if(nchar(allWords[inc]) >= 5){
+      if(substr(tags[inc],1,1) == 'N' || substr(tags[inc],1,1) == 'V'){
+        targetPairs <- c(targetPairs, tagPairs[inc])
+      }
+    }
+    inc <- inc + 1
+  }
+  
+  return(targetPairs)
 }

@@ -1,6 +1,6 @@
 message("-")
 message("--- Intro To Text Analysis Functions ---")
-graphMode <- FALSE # create plots while executing?
+graphMode <- TRUE # create plots while executing?
 
 
 message("-")

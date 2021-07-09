@@ -1,5 +1,8 @@
 rm(list = ls()) # clear everything to start
 
+options(java.parameters = c("-XX:+UseConcMarkSweepGC", "-Xmx8192m")) # let's make it fast
+library(xlsx)
+
 source("functions.R") # load helper functions
 
 if(!exists("gatsby")){
@@ -7,16 +10,16 @@ if(!exists("gatsby")){
 }
 
 scheduler = c(
-  FALSE, # a
-  TRUE, # b & d
+  FALSE, # a & g
+  TRUE, # b & d & f
   FALSE, # c
   FALSE, # e
   FALSE, # f
-  FALSE, # g
   FALSE  # h
 )
 
 # a) Apply functions from Intro To Text Analytics
+# g) Follow the procedures in Introduction to Text Analytics re Word Cloud and Sentiment Analysis
 if(scheduler[1]){
   source("intro.R")
 }
@@ -24,6 +27,7 @@ if(scheduler[1]){
 
 # b) Prior to removing the punctuation, find the 10 longest words and 10 longest sentences in each chapter. 
 # d) Use openNLP to mark the parts of speech for the 10 longest sentences found in part b for nouns and verbs having a length of 5 or greater. 
+# f) Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter.
 if(scheduler[2]){
   source("longestWordsSentences.R")
 }
@@ -40,18 +44,8 @@ if(scheduler[4]){
   source("")
 }
 
-# f) Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter.
-if(scheduler[5]){
-  source("")
-}
-
-# g) Follow the procedures in Introduction to Text Analytics re Word Cloud and Sentiment Analysis
-if(scheduler[6]){
-  source("")
-}
-
 # h) Install the packages stringi, quanteda and select three additional methods from each – not the ones used g – apply them and show the results.
-if(scheduler[7]){
+if(scheduler[5]){
   source("")
 }
 
