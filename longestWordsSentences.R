@@ -47,48 +47,50 @@ message("trigrams:")
 t <- tidytext::unnest_tokens(tbl = allLongestSentences, output = ngram, input = s, token="ngrams", n = 3) 
 u <- dplyr::count(t, ngram, sort = TRUE)
 
-for(i in u){
-  
-}
-
-print(u)
-
-message("bigrams:")
-t <- tidytext::unnest_tokens(tbl = allLongestSentences, output = ngram, input = s, token="ngrams", n = 2) 
-u <- dplyr::count(t, ngram, sort = TRUE)
-print(u)
-
 cleanu <- c()
 
-for(i in u){
-  message(i)
-  print(i)
-  a <- strsplit(u['ngram'], " ")
+for(row in 1:nrow(u)){
+  a <- strsplit(u[row, 'ngram'], " ")
   keep <- FALSE
   for(j in a)
   {
-    if(nchar(j) > 5){
+    #message('heres j: ')
+    #Sprint(j)
+    if(nchar(j) > 6){
       keep <- TRUE
     }
   }
   if(keep){
-    cleanu <- c(cleanu, i)
+    cleanu <- c(cleanu, u[row,'ngram'])
   }
 }
 
-#
-#ch1df %>%
-#  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 3)  %>%
-#  head(100) %>%
-#  print()
-# unnest_tokens(bigram, ch1TenLongestSentences, token = "ngrams", n = 2) %>%
+print(cleanu)
 
+message("bigrams:")
+t <- tidytext::unnest_tokens(tbl = allLongestSentences, output = ngram, input = s, token="ngrams", n = 2) 
+u <- dplyr::count(t, ngram, sort = TRUE)
+# print(u)
 
-#message("bigrams:")
-#ch1df %>%
-#  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 2)  %>%
-#  head(100) %>%
-#  print()
+cleanu <- c()
+
+for(row in 1:nrow(u)){
+  a <- strsplit(u[row, 'ngram'], " ")
+  keep <- FALSE
+  for(j in a)
+  {
+    #message('heres j: ')
+    #Sprint(j)
+    if(nchar(j) > 6){
+      keep <- TRUE
+    }
+  }
+  if(keep){
+    cleanu <- c(cleanu, u[row,'ngram'])
+  }
+}
+
+print(cleanu)
 
 
 
