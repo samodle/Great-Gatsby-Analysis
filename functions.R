@@ -89,7 +89,7 @@ performSimpleClean <- function(x){
 }
 
 getNounsVerbsLongerThanFive <- function(x){
-  s <- as.String(x)
+  s <- as.String(xr)
   ## Need sentence and word token annotations.
   sent_token_annotator <- openNLP::Maxent_Sent_Token_Annotator()
   word_token_annotator <- openNLP::Maxent_Word_Token_Annotator()

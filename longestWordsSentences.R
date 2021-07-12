@@ -40,16 +40,59 @@ print(ch3TenLongestSentences)
 message("-")
 message("--- Generate bigrams and trigrams for all words whose length is greater than 6 characters in the 10 longest sentences of each chapter ---")
 
+allLongestSentences <- as.data.frame(c(ch1TenLongestSentences, ch2TenLongestSentences, ch3TenLongestSentences))
+colnames(allLongestSentences) = "s"
 
-t <- tidytext::unnest_tokens(tbl = ch1df, output = ngram, input = V1, token="ngrams", n = 2) 
+message("trigrams:")
+t <- tidytext::unnest_tokens(tbl = allLongestSentences, output = ngram, input = s, token="ngrams", n = 3) 
 u <- dplyr::count(t, ngram, sort = TRUE)
 
+for(i in u){
+  
+}
 
-ch1df %>%
-  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 3)  %>%
-  head(100) %>%
-  print()
+print(u)
+
+message("bigrams:")
+t <- tidytext::unnest_tokens(tbl = allLongestSentences, output = ngram, input = s, token="ngrams", n = 2) 
+u <- dplyr::count(t, ngram, sort = TRUE)
+print(u)
+
+cleanu <- c()
+
+for(i in u){
+  message(i)
+  print(i)
+  a <- strsplit(u['ngram'], " ")
+  keep <- FALSE
+  for(j in a)
+  {
+    if(nchar(j) > 5){
+      keep <- TRUE
+    }
+  }
+  if(keep){
+    cleanu <- c(cleanu, i)
+  }
+}
+
+#
+#ch1df %>%
+#  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 3)  %>%
+#  head(100) %>%
+#  print()
 # unnest_tokens(bigram, ch1TenLongestSentences, token = "ngrams", n = 2) %>%
+
+
+#message("bigrams:")
+#ch1df %>%
+#  tidytext::unnest_tokens(output = ngram, input = V1, token="ngrams", n = 2)  %>%
+#  head(100) %>%
+#  print()
+
+
+
+
 
 
 
